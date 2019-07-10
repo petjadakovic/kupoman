@@ -1,5 +1,6 @@
 package org.kupoman.KupomanRest.coupon;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -23,7 +24,13 @@ public class CouponRepository {
 	private static List<CouponEntity> generateCoupons() {
 		List<CouponEntity> coupons = new ArrayList<>();
 		for (int i = 0; i < 5; i++) {
-			ShopEntity shopEntity = ShopRepository.getShops().get(i);
+			ShopEntity shopEntity = null;
+			try {
+				shopEntity = ShopRepository.getShops().get(i);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			CouponEntity coupon = new CouponEntity();
 			coupon.setId((long) currentIndex.incrementAndGet());
 			coupon.setShop(shopEntity);

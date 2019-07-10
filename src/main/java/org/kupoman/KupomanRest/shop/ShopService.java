@@ -1,5 +1,6 @@
 package org.kupoman.KupomanRest.shop;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ShopService {
@@ -11,7 +12,13 @@ public class ShopService {
     }
 
     public List<Shop> getShops() {
-        return shopMapper.mapToModelList(ShopRepository.getShops());
+        try {
+			return shopMapper.mapToModelList(ShopRepository.getShops());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return null;
     }
 
 }
